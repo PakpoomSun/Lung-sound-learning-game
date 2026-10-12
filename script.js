@@ -13,7 +13,72 @@ document.querySelectorAll("#options input").forEach((input,i)=>input.addEventLis
 $("prev").disabled=idx===0;$("next").classList.toggle("hidden",idx===3);$("submit").classList.toggle("hidden",idx!==3);updateDots()}
 function updateDots(){$("answered").textContent=answers.filter(a=>a!==null).length;$("dots").innerHTML=qs.map((q,i)=>`<div class="dot ${answers[i]!==null?"done":""} ${i===idx?"current":""}">ข้อ ${i+1}${answers[i]!==null?" ✓":""}</div>`).join("")}
 function next(){if(idx<3){idx++;render()}}function prev(){if(idx>0){idx--;render()}}
-function submit(){let missing=answers.map((a,i)=>a===null?i+1:null).filter(Boolean);if(missing.length){$("feedback").textContent=`กรุณาตอบข้อ ${missing.join(", ")} ก่อนส่งคำตอบ`;return}
-let score=0;qs.forEach((q,i)=>{let a=optionSets[i][answers[i]];if(a.side===q.abn&&a.type===q.type)score++});$("quizPage").classList.add("hidden");$("results").classList.remove("hidden");$("finalScore").textContent=score;$("finalText").textContent=score===4?"ยอดเยี่ยม! ถูกครบทุกข้อ": "ดูเฉลยแต่ละข้อและฟังเสียงซ้ำเพื่อทบทวนได้";$("reviews").innerHTML="";
-qs.forEach((q,i)=>{let answer=optionSets[i][answers[i]],normalSide=q.abn==="left"?"right":"left",good=answer.side===q.abn&&answer.type===q.type,normal=S.normal,ab=S[q.type],r=document.createElement("article");r.className="review";r.innerHTML=`<h3>ข้อ ${i+1} · ${good?"ตอบถูก":"ตอบผิด"}</h3><div class="meta"><div><b>เสียงปกติ</b>${side(normalSide)}<br>${normal.name}</div><div class="abn"><b>เสียงผิดปกติ</b>${side(q.abn)}<br>${ab.name}</div></div><p><b>ลักษณะเสียง:</b> ${ab.desc}</p><p><b>คำตอบของคุณ:</b> ${side(answer.side)} · ${S[answer.type].name}</p><div class="media"><div><h4>ฟังเสียงปกติ</h4><audio controls src="${normal.audio}"></audio><h4>วิดีโอทบทวนเสียงปกติ</h4><video controls playsinline src="${normal.video}"></video></div><div><h4>ฟังเสียงผิดปกติ</h4><audio controls src="${ab.audio}"></audio><h4>วิดีโอทบทวน ${ab.name}</h4><video controls playsinline src="${ab.video}"></video></div></div>`;$("reviews").appendChild(r)});window.scrollTo({top:0,behavior:"smooth"})}
-$("left").onclick=()=>play("left");$("right").onclick=()=>play("right");$("next").onclick=next;$("prev").onclick=prev;$("submit").onclick=submit;$("retry").onclick=()=>{$("results").classList.add("hidden");$("quizPage").classList.remove("hidden");setup()};setup();
+function submit() {
+  let missing = answers
+    .map((a, i) => a === null ? i + 1 : null)
+    .filter(Boolean);
+
+  if (missing.length) {
+    $("feedback").textContent =
+      `กรุณาตอบข้อ ${missing.join(", ")} ก่อนส่งคำตอบ`;
+    return;
+  }
+
+  let score = 0;
+
+  qs.forEach((q, i) => {
+    let a = optionSets[i][answers[i]];
+    if (a.side === q.abn && a.type === q.type) score++;
+  });
+
+  $("quizPage").classList.add("hidden");
+  $("results").classList.remove("hidden");
+  $("finalScore").textContent = score;
+  $("finalText").textContent = score === 4
+    ? "ยอดเยี่ยม! ถูกครบทุกข้อ"
+    : "ดูเฉลยและทบทวนเสียงผิดปกติในแต่ละข้อได้";
+
+  $("reviews").innerHTML = "";
+
+  qs.forEach((q, i) => {
+    let answer = optionSets[i][answers[i]];
+    let good = answer.side === q.abn && answer.type === q.type;
+    let ab = S[q.type];
+
+    let r = document.createElement("article");
+    r.className = "review";
+
+    r.innerHTML = `
+      <h3>ข้อ ${i + 1} · ${good ? "ตอบถูก" : "ตอบผิด"}</h3>
+
+      <div class="meta">
+        <div class="abn">
+          <b>เสียงผิดปกติ</b>
+          ${side(q.abn)}<br>
+          ${ab.name}
+        </div>
+      </div>
+
+      <p><b>ลักษณะเสียง:</b> ${ab.desc}</p>
+
+      <p>
+        <b>คำตอบของคุณ:</b>
+        ${side(answer.side)} · ${S[answer.type].name}
+      </p>
+
+      <div class="media">
+        <div>
+          <h4>ฟังเสียงผิดปกติ: ${ab.name}</h4>
+          <audio controls preload="metadata" src="${ab.audio}"></audio>
+
+          <h4>วิดีโอทบทวน: ${ab.name}</h4>
+          <video controls playsinline preload="metadata" src="${ab.video}"></video>
+        </div>
+      </div>
+    `;
+
+    $("reviews").appendChild(r);
+  });
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}

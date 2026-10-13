@@ -1,7 +1,84 @@
-<!doctype html><html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Lung Sound Learning Quiz Game</title><link rel="stylesheet" href="./style.css"></head><body>
-<header class="site-header"><div class="logo">🫁</div><div><p class="eyebrow">NURSING AUDIO LEARNING</p><h1>Lung Sound Learning Quiz Game</h1><p class="subtitle">เรียนรู้เสียงปอดปกติ · จำแนกเสียงผิดปกติ · ทบทวนด้วยวิดีโอ</p></div></header><main>
-<section id="learningPage" class="layout"><section class="card"><div class="between"><span class="pill">หน้าเรียนรู้</span><span class="pill pale">Normal breath sounds</span></div><h2>ฝึกฟังเสียงปอดปกติก่อนเริ่มแบบทดสอบ</h2><p class="muted">คลิกบริเวณใดก็ได้ภายในปอดซ้ายหรือปอดขวา ทั้งสองฝั่งจะเล่นเสียงปอดปกติ</p>
-<div class="lung" id="learningLung"><img src="./lung.png" alt="ภาพปอดด้านหน้า"><svg class="lung-map" viewBox="0 0 463 418" preserveAspectRatio="none"><path class="lung-zone" tabindex="0" role="button" aria-label="ปอดซ้ายของภาพ" data-side="left" d="M249 57 C238 77 225 101 216 124 C207 98 202 70 196 48 C178 43 159 43 148 46 C135 50 126 61 120 71 C124 80 129 87 134 93 C121 101 108 106 100 113 C101 120 104 127 107 133 C88 153 74 176 61 198 C58 236 60 280 67 317 C74 336 87 350 100 355 C135 359 177 348 206 335 C214 293 219 224 221 162 C234 154 248 148 260 144 C258 112 253 80 249 57 Z"/><path class="lung-zone" tabindex="0" role="button" aria-label="ปอดขวาของภาพ" data-side="right" d="M316 52 C305 53 295 55 287 57 C276 66 268 77 261 88 C262 130 262 183 262 230 C262 270 261 308 262 335 C283 346 311 352 339 354 C362 350 382 343 393 334 C396 317 395 298 392 281 C401 267 407 252 412 238 C406 205 396 175 384 150 C377 140 368 135 360 131 C365 126 370 121 373 117 C361 108 348 101 336 97 C342 90 347 83 350 76 C340 65 328 57 316 52 Z"/></svg><div class="lung-hint">คลิกพื้นที่ปอดซ้ายหรือขวา</div></div><p id="learningStatus" class="listen-status" aria-live="polite">พร้อมฟังเสียงปอดปกติ</p><div class="audio-engine"><audio id="learningPlayer" preload="none"></audio></div><div class="actions"><button id="startQuiz">เริ่มแบบทดสอบ →</button></div><p class="tiny">หน้านี้ไม่มีคำถามและไม่มีการให้คะแนน</p></section><aside class="sidebar card dark"><p class="eyebrow">BEFORE YOU START</p><h2>วิธีฝึกฟัง</h2><ol><li>คลิกบริเวณใดก็ได้ภายในปอดซ้าย</li><li>คลิกบริเวณใดก็ได้ภายในปอดขวา</li><li>ทั้งสองฝั่งจะเล่นเสียงปอดปกติ</li><li>เมื่อพร้อมแล้วกดเริ่มแบบทดสอบ</li></ol></aside></section>
-<section id="quizPage" class="layout hidden"><section class="card"><div class="between"><span class="pill">แบบทดสอบ</span><span id="qLabel" class="pill pale">กำลังเตรียมข้อสอบ…</span></div><div class="progress-track"><div id="bar"></div></div><h2>ฟังเสียงปอดทั้งสองฝั่ง</h2><p class="muted">คลิกบริเวณใดก็ได้ภายในปอดซ้ายหรือขวาเพื่อฟังเสียง แล้วเลือกคำตอบที่ถูกต้องเพียง 1 ข้อ</p>
-<div class="lung" id="quizLung"><img src="./lung.png" alt="ภาพปอดด้านหน้า"><svg class="lung-map" viewBox="0 0 463 418" preserveAspectRatio="none"><path class="lung-zone" tabindex="0" role="button" aria-label="ปอดซ้ายของภาพ" data-side="left" d="M249 57 C238 77 225 101 216 124 C207 98 202 70 196 48 C178 43 159 43 148 46 C135 50 126 61 120 71 C124 80 129 87 134 93 C121 101 108 106 100 113 C101 120 104 127 107 133 C88 153 74 176 61 198 C58 236 60 280 67 317 C74 336 87 350 100 355 C135 359 177 348 206 335 C214 293 219 224 221 162 C234 154 248 148 260 144 C258 112 253 80 249 57 Z"/><path class="lung-zone" tabindex="0" role="button" aria-label="ปอดขวาของภาพ" data-side="right" d="M316 52 C305 53 295 55 287 57 C276 66 268 77 261 88 C262 130 262 183 262 230 C262 270 261 308 262 335 C283 346 311 352 339 354 C362 350 382 343 393 334 C396 317 395 298 392 281 C401 267 407 252 412 238 C406 205 396 175 384 150 C377 140 368 135 360 131 C365 126 370 121 373 117 C361 108 348 101 336 97 C342 90 347 83 350 76 C340 65 328 57 316 52 Z"/></svg><div class="lung-hint">คลิกพื้นที่ปอดซ้ายหรือขวา</div></div><div class="audio-engine"><audio id="player" preload="none"></audio></div><h3>ฝั่งไหนผิดปกติ และเป็นเสียงชนิดใด?</h3><div id="options" class="options"></div><div id="feedback" aria-live="polite"></div><div class="actions"><button id="prev" class="secondary">← ข้อก่อนหน้า</button><button id="next">ถัดไป →</button><button id="submit" class="hidden">ส่งคำตอบทั้งหมด</button></div><p class="tiny">ย้อนกลับไปแก้คำตอบได้ก่อนส่ง</p></section><aside class="sidebar"><section class="card dark"><p class="eyebrow">YOUR PROGRESS</p><h2>ความคืบหน้า</h2><div class="score"><span id="answered">0</span><small>/ 4 ตอบแล้ว</small></div><div id="dots" class="dots"></div></section><section class="card"><h3>วิธีเล่น</h3><ol><li>คลิกปอดซ้ายหรือขวาเพื่อฟังเสียง</li><li>เลือกฝั่งผิดปกติและชนิดเสียง</li><li>ย้อนกลับหรือกดถัดไป</li><li>ตอบครบ 4 ข้อแล้วส่งคำตอบ</li></ol></section></aside></section>
-<section id="results" class="results hidden"><div class="card result-summary"><div class="trophy">🏆</div><h2>สรุปผลแบบทดสอบ</h2><div class="final"><span id="finalScore">0</span><small>/ 4 คะแนน</small></div><p id="finalText"></p><button id="retry">กลับไปเรียนรู้เสียงปอดปกติและทำแบบทดสอบอีกครั้ง</button></div><h2>เฉลยและทบทวนเสียงแต่ละข้อ</h2><p class="muted">ฟังเสียงผิดปกติและเปิดวิดีโอทบทวนได้</p><div id="reviews"></div></section></main><footer>สื่อฝึกการฟังเสียงสำหรับนักศึกษาพยาบาล ไม่ใช้แทนการประเมินผู้ป่วยจริง</footer><script src="./script.js"></script></body></html>
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lung Sound Learning Quiz Game</title>
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="logo" aria-hidden="true">🫁</div>
+  <div class="brand">
+    <p class="eyebrow">NURSING AUDIO LEARNING</p>
+    <h1>Lung Sound Learning Quiz Game</h1>
+    <p class="subtitle">เรียนรู้เสียงปอดปกติ · จำแนกเสียงผิดปกติ · ทบทวนด้วยวิดีโอ</p>
+  </div>
+</header>
+<main>
+  <section id="learningPage" class="layout">
+    <section class="card">
+      <div class="between"><span class="pill">หน้าเรียนรู้</span><span class="pill pale">Normal breath sounds</span></div>
+      <h2>ฝึกฟังเสียงปอดปกติก่อนเริ่มแบบทดสอบ</h2>
+      <p class="muted">คลิกที่รูปปอดซ้ายหรือปอดขวาเพื่อฟังเสียงปอดปกติ ทั้งสองฝั่งจะเล่นเสียงเดียวกัน</p>
+      <div class="lung-pair" id="learningLung">
+        <button type="button" class="lung-target" data-side="left" aria-label="คลิกเพื่อฟังเสียงปอดปกติ ฝั่งซ้าย">
+          <img src="./lung-left.png" alt="ปอดซ้าย">
+          <span>ปอดซ้าย</span>
+        </button>
+        <button type="button" class="lung-target" data-side="right" aria-label="คลิกเพื่อฟังเสียงปอดปกติ ฝั่งขวา">
+          <img src="./lung-right.png" alt="ปอดขวา">
+          <span>ปอดขวา</span>
+        </button>
+      </div>
+      <p id="learningStatus" class="listen-status" aria-live="polite">พร้อมฟังเสียงปอดปกติ</p>
+      <div class="audio-engine"><audio id="learningPlayer" preload="none"></audio></div>
+      <div class="actions"><button id="startQuiz" type="button">เริ่มแบบทดสอบ →</button></div>
+      <p class="tiny">หน้านี้ไม่มีคำถามและไม่มีการให้คะแนน</p>
+    </section>
+    <aside class="sidebar card dark">
+      <p class="eyebrow">BEFORE YOU START</p><h2>วิธีฝึกฟัง</h2>
+      <ol><li>คลิกที่รูปปอดซ้าย</li><li>คลิกที่รูปปอดขวา</li><li>ทั้งสองฝั่งจะเล่นเสียงปอดปกติ</li><li>เมื่อพร้อมแล้วกดเริ่มแบบทดสอบ</li></ol>
+    </aside>
+  </section>
+
+  <section id="quizPage" class="layout hidden">
+    <section class="card">
+      <div class="between"><span class="pill">แบบทดสอบ</span><span id="qLabel" class="pill pale">กำลังเตรียมข้อสอบ…</span></div>
+      <div class="progress-track"><div id="bar"></div></div>
+      <h2>ฟังเสียงปอดทั้งสองฝั่ง</h2>
+      <p class="muted">คลิกที่รูปปอดซ้ายหรือขวาเพื่อฟังเสียง แล้วเลือกคำตอบที่ถูกต้องเพียง 1 ข้อ</p>
+      <div class="lung-pair" id="quizLung">
+        <button type="button" class="lung-target" data-side="left" aria-label="ฟังเสียงปอดฝั่งซ้าย">
+          <img src="./lung-left.png" alt="ปอดซ้าย"><span>ปอดซ้าย</span>
+        </button>
+        <button type="button" class="lung-target" data-side="right" aria-label="ฟังเสียงปอดฝั่งขวา">
+          <img src="./lung-right.png" alt="ปอดขวา"><span>ปอดขวา</span>
+        </button>
+      </div>
+      <div class="audio-engine"><audio id="player" preload="none"></audio></div>
+      <h3>ฝั่งไหนผิดปกติ และเป็นเสียงชนิดใด?</h3>
+      <div id="options" class="options" aria-label="ตัวเลือกคำตอบ"></div>
+      <div id="feedback" aria-live="polite"></div>
+      <div class="actions">
+        <button id="prev" class="secondary" type="button">← ข้อก่อนหน้า</button>
+        <button id="next" type="button">ถัดไป →</button>
+        <button id="submit" class="hidden" type="button">ส่งคำตอบทั้งหมด</button>
+      </div>
+      <p class="tiny">ย้อนกลับไปแก้คำตอบได้ก่อนส่ง</p>
+    </section>
+    <aside class="sidebar">
+      <section class="card dark"><p class="eyebrow">YOUR PROGRESS</p><h2>ความคืบหน้า</h2><div class="score"><span id="answered">0</span><small>/ 4 ตอบแล้ว</small></div><div id="dots" class="dots"></div></section>
+      <section class="card"><h3>วิธีเล่น</h3><ol><li>คลิกปอดซ้ายหรือขวาเพื่อฟังเสียง</li><li>เลือกฝั่งผิดปกติและชนิดเสียง</li><li>ย้อนกลับหรือกดถัดไป</li><li>ตอบครบ 4 ข้อแล้วส่งคำตอบ</li></ol></section>
+    </aside>
+  </section>
+
+  <section id="results" class="results hidden">
+    <div class="card result-summary"><div class="trophy">🏆</div><h2>สรุปผลแบบทดสอบ</h2><div class="final"><span id="finalScore">0</span><small>/ 4 คะแนน</small></div><p id="finalText"></p><button id="retry" type="button">กลับไปเรียนรู้เสียงปอดปกติและทำแบบทดสอบอีกครั้ง</button></div>
+    <h2 class="review-heading">เฉลยและทบทวนเสียงแต่ละข้อ</h2><p class="muted">ฟังเสียงผิดปกติและเปิดวิดีโอทบทวนได้</p><div id="reviews"></div>
+  </section>
+</main>
+<footer>สื่อฝึกการฟังเสียงสำหรับนักศึกษาพยาบาล ไม่ใช้แทนการประเมินผู้ป่วยจริง</footer>
+<script src="./script.js"></script>
+</body>
+</html>

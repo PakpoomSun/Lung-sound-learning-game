@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Lung Sound Pair Quiz</title><link rel="stylesheet" href="./style.css"></head>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Lung Sound Learning Quiz Game</title><link rel="stylesheet" href="./style.css"></head>
 <body>
-<header class="site-header"><div class="logo">🫁</div><div class="brand"><p class="eyebrow">NURSING AUDIO LEARNING</p><h1>Lung Sound Pair Quiz</h1><p class="subtitle">ฟังเสียงปอดสองฝั่ง · จำแนกเสียงผิดปกติ · ทบทวนด้วยวิดีโอ</p></div></header>
+<header class="site-header"><div class="logo">🫁</div><div class="brand"><p class="eyebrow">NURSING AUDIO LEARNING</p><h1>Lung Sound Learning Quiz Game</h1><p class="subtitle">ฟังเสียงปอดสองฝั่ง · จำแนกเสียงผิดปกติ · ทบทวนด้วยวิดีโอ</p></div></header>
 <main id="quizPage" class="layout"><section class="card quiz-card">
 <div class="between"><span class="pill">แบบทดสอบ</span><span id="qLabel" class="pill pale">กำลังเตรียมข้อสอบ…</span></div>
-<div class="progress-track"><div id="bar"></div></div><h2>ฟังเสียงปอดทั้งสองฝั่ง</h2><p class="muted">คลิกจุดบนปอดซ้ายและขวาเพื่อฟังได้ไม่จำกัดครั้ง แล้วเลือกคำตอบที่ถูกต้องเพียง 1 ข้อ</p>
+<div class="progress-track"><div id="bar"></div></div><h2>ฟังเสียงปอดทั้งสองฝั่ง</h2><p class="muted">คลิกจุดบนปอดซ้ายและขวาเพื่อฟังเสียงของปอด แล้วเลือกคำตอบที่ถูกต้องเพียง 1 ข้อ</p>
 <div class="lung"><img src="./lung.png" alt="ภาพปอด" id="lungImage" onerror="this.style.display='none';document.getElementById('imgFallback').classList.remove('hidden')"><div id="imgFallback" class="hidden">ไม่พบ lung.png — กรุณาตรวจสอบไฟล์ภาพปอด</div><button type="button" id="left" class="point pleft">1<small>ฟังซ้าย</small></button><button type="button" id="right" class="point pright">2<small>ฟังขวา</small></button></div>
 <div class="audio-engine" aria-hidden="true"><audio id="player" preload="none"></audio></div>
 <h3 class="question-title">ฝั่งไหนผิดปกติ และเป็นเสียงชนิดใด?</h3><div id="options" class="options" aria-label="ตัวเลือกคำตอบ"></div><div id="feedback" aria-live="polite"></div>

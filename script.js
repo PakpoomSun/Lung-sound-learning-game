@@ -1,23 +1,84 @@
-(()=>{"use strict";
-const S={normal:{name:"เสียงปอดปกติ (Normal sound)",audio:"media/normal-sound.mp4"},
-rhonchi:{name:"Rhonchi",audio:"media/rhonchi-audio.mp4",video:"media/rhonchi-review.mp4",desc:"เสียงต่ำ ทุ้ม คล้ายเสียงกรนหรือเสียงครืดคราด มักเกิดจากสารคัดหลั่งในทางเดินหายใจขนาดใหญ่ และอาจเปลี่ยนแปลงหรือลดลงหลังไอ"},
-stridor:{name:"Stridor",audio:"media/stridor-audio.mp4",video:"media/stridor-review.mp4",desc:"เสียงแหลมดังและหยาบ คล้ายเสียงหวูด มักได้ยินชัดขณะหายใจเข้า เกิดจากการตีบแคบหรืออุดกั้นของทางเดินหายใจส่วนบน"},
-wheezing:{name:"Wheezing",audio:"media/wheezing-audio.mp4",video:"media/wheezing-review.mp4",desc:"เสียงหวีดแหลมต่อเนื่อง คล้ายเสียงผิวปากหรือนกหวีด มักได้ยินชัดขณะหายใจออก เกิดจากทางเดินหายใจตีบแคบ"},
-crackles:{name:"Crepitation / Rales / Crackles",audio:"media/crackles-audio.mp4",video:"media/crackles-review.mp4",desc:"เสียงแตกเป๊าะ ๆ หรือกรอบแกรบเป็นช่วงสั้น ๆ คล้ายเสียงแกะตีนตุ๊กแกหรือเสียงขยี้ถุงพลาสติก มักได้ยินชัดขณะหายใจเข้า โดยอาจเกิดจากการเปิดของทางเดินหายใจขนาดเล็กหรือมีสารคัดหลั่ง ขึ้นอยู่กับสาเหตุ"}};
-const types=["rhonchi","stridor","wheezing","crackles"],$=id=>document.getElementById(id);let qs=[],idx=0,answers=[null,null,null,null],optionSets=[];
-function shuffle(a){a=[...a];for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
-function side(s){return s==="left"?"ฝั่งซ้ายของภาพ":"ฝั่งขวาของภาพ"}
-function play(player,src,onError){player.pause();player.src=src;player.load();let p=player.play();if(p&&p.catch)p.catch(()=>onError?onError("เล่นเสียงไม่ได้ กรุณาตรวจสอบไฟล์ "+src):$("feedback").textContent="เล่นเสียงไม่ได้ กรุณาตรวจสอบไฟล์ "+src)}
-function bindZones(rootId,playerId,sourceFn,statusId){let root=$(rootId),player=$(playerId);root.querySelectorAll(".lung-zone").forEach(z=>{function activate(){root.querySelectorAll(".lung-zone").forEach(x=>x.classList.toggle("active",x===z));play(player,sourceFn(z.dataset.side),msg=>{if(statusId)$(statusId).textContent=msg;else $("feedback").textContent=msg});if(statusId)$(statusId).textContent="กำลังเล่นเสียงปอดปกติ — "+side(z.dataset.side)}z.addEventListener("click",activate);z.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();activate()}})})}
-function setup(){qs=shuffle(types).map(type=>({type,abn:Math.random()<.5?"left":"right"}));idx=0;answers=[null,null,null,null];optionSets=[];render()}
-function render(){let q=qs[idx];$("qLabel").textContent=`ข้อ ${idx+1} จาก 4`;$("bar").style.width=`${idx/4*100}%`;$("feedback").textContent="";$("options").replaceChildren();let p=$("player");p.pause();p.removeAttribute("src");p.load();$("quizLung").querySelectorAll(".lung-zone").forEach(z=>z.classList.remove("active"));
-let opts=[{side:q.abn,type:q.type}];shuffle(types.filter(t=>t!==q.type)).forEach((t,i)=>opts.push({side:i%2===0?(q.abn==="left"?"right":"left"):q.abn,type:t}));optionSets[idx]=shuffle(opts);
-optionSets[idx].forEach((o,i)=>{let l=document.createElement("label");l.className="opt";let r=document.createElement("input");r.type="radio";r.name="answer";r.checked=answers[idx]===i;r.addEventListener("change",()=>{answers[idx]=i;update()});let s=document.createElement("span");s.textContent=side(o.side)+" มีเสียง "+S[o.type].name;l.append(r,s);$("options").append(l)});
-$("prev").disabled=idx===0;$("next").classList.toggle("hidden",idx===3);$("submit").classList.toggle("hidden",idx!==3);update()}
-function update(){ $("answered").textContent=answers.filter(a=>a!==null).length;$("dots").replaceChildren();qs.forEach((q,i)=>{let d=document.createElement("div");d.className="dot"+(answers[i]!==null?" done":"")+(i===idx?" current":"");d.textContent=`ข้อ ${i+1}${answers[i]!==null?" ✓":""}`;$("dots").append(d)});document.querySelectorAll("#options .opt").forEach((el,i)=>el.classList.toggle("selected",answers[idx]===i))}
-function txt(parent,tag,t){let e=document.createElement(tag);e.textContent=t;parent.append(e);return e}
-function submit(){let missing=answers.map((a,i)=>a===null?i+1:null).filter(Boolean);if(missing.length){$("feedback").textContent="กรุณาตอบข้อ "+missing.join(", ")+" ก่อนส่งคำตอบ";return}let score=0;qs.forEach((q,i)=>{let a=optionSets[i][answers[i]];if(a.side===q.abn&&a.type===q.type)score++});$("quizPage").classList.add("hidden");$("results").classList.remove("hidden");$("finalScore").textContent=score;$("finalText").textContent=score===4?"ยอดเยี่ยม! ถูกครบทุกข้อ":"ทบทวนลักษณะเสียงผิดปกติและลองทำแบบทดสอบอีกครั้ง";$("reviews").replaceChildren();
-qs.forEach((q,i)=>{let a=optionSets[i][answers[i]],good=a.side===q.abn&&a.type===q.type,ab=S[q.type],art=document.createElement("article");art.className="review";txt(art,"h3",`ข้อ ${i+1} · ${good?"ตอบถูก":"ตอบผิด"}`);txt(art,"p","เสียงผิดปกติ: "+side(q.abn)+" · "+ab.name);txt(art,"p","ลักษณะเสียง: "+ab.desc);txt(art,"p","คำตอบของคุณ: "+side(a.side)+" · "+S[a.type].name);txt(art,"h4","ฟังเสียงผิดปกติ: "+ab.name);let au=document.createElement("audio");au.controls=true;au.preload="metadata";au.src=ab.audio;art.append(au);txt(art,"h4","วิดีโอทบทวน: "+ab.name);let v=document.createElement("video");v.controls=true;v.playsInline=true;v.preload="metadata";v.src=ab.video;art.append(v);$("reviews").append(art)});window.scrollTo({top:0,behavior:"smooth"})}
-function init(){bindZones("learningLung","learningPlayer",()=>S.normal.audio,"learningStatus");bindZones("quizLung","player",s=>{let q=qs[idx];return q&&s===q.abn?S[q.type].audio:S.normal.audio});
-$("startQuiz").addEventListener("click",()=>{$("learningPage").classList.add("hidden");$("quizPage").classList.remove("hidden");setup();window.scrollTo({top:0,behavior:"smooth"})});$("next").addEventListener("click",()=>{if(idx<3){idx++;render()}});$("prev").addEventListener("click",()=>{if(idx>0){idx--;render()}});$("submit").addEventListener("click",submit);$("retry").addEventListener("click",()=>{$("results").classList.add("hidden");$("learningPage").classList.remove("hidden");$("learningStatus").textContent="พร้อมฟังเสียงปอดปกติ";$("learningLung").querySelectorAll(".lung-zone").forEach(z=>z.classList.remove("active"));let p=$("learningPlayer");p.pause();p.removeAttribute("src");p.load();window.scrollTo({top:0,behavior:"smooth"})})}
-if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else init()})();
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lung Sound Learning Quiz Game</title>
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="logo" aria-hidden="true">🫁</div>
+  <div class="brand">
+    <p class="eyebrow">NURSING AUDIO LEARNING</p>
+    <h1>Lung Sound Learning Quiz Game</h1>
+    <p class="subtitle">เรียนรู้เสียงปอดปกติ · จำแนกเสียงผิดปกติ · ทบทวนด้วยวิดีโอ</p>
+  </div>
+</header>
+<main>
+  <section id="learningPage" class="layout">
+    <section class="card">
+      <div class="between"><span class="pill">หน้าเรียนรู้</span><span class="pill pale">Normal breath sounds</span></div>
+      <h2>ฝึกฟังเสียงปอดปกติก่อนเริ่มแบบทดสอบ</h2>
+      <p class="muted">คลิกที่รูปปอดซ้ายหรือปอดขวาเพื่อฟังเสียงปอดปกติ ทั้งสองฝั่งจะเล่นเสียงเดียวกัน</p>
+      <div class="lung-pair" id="learningLung">
+        <button type="button" class="lung-target" data-side="left" aria-label="คลิกเพื่อฟังเสียงปอดปกติ ฝั่งซ้าย">
+          <img src="./lung-left.png" alt="ปอดซ้าย">
+          <span>ปอดซ้าย</span>
+        </button>
+        <button type="button" class="lung-target" data-side="right" aria-label="คลิกเพื่อฟังเสียงปอดปกติ ฝั่งขวา">
+          <img src="./lung-right.png" alt="ปอดขวา">
+          <span>ปอดขวา</span>
+        </button>
+      </div>
+      <p id="learningStatus" class="listen-status" aria-live="polite">พร้อมฟังเสียงปอดปกติ</p>
+      <div class="audio-engine"><audio id="learningPlayer" preload="none"></audio></div>
+      <div class="actions"><button id="startQuiz" type="button">เริ่มแบบทดสอบ →</button></div>
+      <p class="tiny">หน้านี้ไม่มีคำถามและไม่มีการให้คะแนน</p>
+    </section>
+    <aside class="sidebar card dark">
+      <p class="eyebrow">BEFORE YOU START</p><h2>วิธีฝึกฟัง</h2>
+      <ol><li>คลิกที่รูปปอดซ้าย</li><li>คลิกที่รูปปอดขวา</li><li>ทั้งสองฝั่งจะเล่นเสียงปอดปกติ</li><li>เมื่อพร้อมแล้วกดเริ่มแบบทดสอบ</li></ol>
+    </aside>
+  </section>
+
+  <section id="quizPage" class="layout hidden">
+    <section class="card">
+      <div class="between"><span class="pill">แบบทดสอบ</span><span id="qLabel" class="pill pale">กำลังเตรียมข้อสอบ…</span></div>
+      <div class="progress-track"><div id="bar"></div></div>
+      <h2>ฟังเสียงปอดทั้งสองฝั่ง</h2>
+      <p class="muted">คลิกที่รูปปอดซ้ายหรือขวาเพื่อฟังเสียง แล้วเลือกคำตอบที่ถูกต้องเพียง 1 ข้อ</p>
+      <div class="lung-pair" id="quizLung">
+        <button type="button" class="lung-target" data-side="left" aria-label="ฟังเสียงปอดฝั่งซ้าย">
+          <img src="./lung-left.png" alt="ปอดซ้าย"><span>ปอดซ้าย</span>
+        </button>
+        <button type="button" class="lung-target" data-side="right" aria-label="ฟังเสียงปอดฝั่งขวา">
+          <img src="./lung-right.png" alt="ปอดขวา"><span>ปอดขวา</span>
+        </button>
+      </div>
+      <div class="audio-engine"><audio id="player" preload="none"></audio></div>
+      <h3>ฝั่งไหนผิดปกติ และเป็นเสียงชนิดใด?</h3>
+      <div id="options" class="options" aria-label="ตัวเลือกคำตอบ"></div>
+      <div id="feedback" aria-live="polite"></div>
+      <div class="actions">
+        <button id="prev" class="secondary" type="button">← ข้อก่อนหน้า</button>
+        <button id="next" type="button">ถัดไป →</button>
+        <button id="submit" class="hidden" type="button">ส่งคำตอบทั้งหมด</button>
+      </div>
+      <p class="tiny">ย้อนกลับไปแก้คำตอบได้ก่อนส่ง</p>
+    </section>
+    <aside class="sidebar">
+      <section class="card dark"><p class="eyebrow">YOUR PROGRESS</p><h2>ความคืบหน้า</h2><div class="score"><span id="answered">0</span><small>/ 4 ตอบแล้ว</small></div><div id="dots" class="dots"></div></section>
+      <section class="card"><h3>วิธีเล่น</h3><ol><li>คลิกปอดซ้ายหรือขวาเพื่อฟังเสียง</li><li>เลือกฝั่งผิดปกติและชนิดเสียง</li><li>ย้อนกลับหรือกดถัดไป</li><li>ตอบครบ 4 ข้อแล้วส่งคำตอบ</li></ol></section>
+    </aside>
+  </section>
+
+  <section id="results" class="results hidden">
+    <div class="card result-summary"><div class="trophy">🏆</div><h2>สรุปผลแบบทดสอบ</h2><div class="final"><span id="finalScore">0</span><small>/ 4 คะแนน</small></div><p id="finalText"></p><button id="retry" type="button">กลับไปเรียนรู้เสียงปอดปกติและทำแบบทดสอบอีกครั้ง</button></div>
+    <h2 class="review-heading">เฉลยและทบทวนเสียงแต่ละข้อ</h2><p class="muted">ฟังเสียงผิดปกติและเปิดวิดีโอทบทวนได้</p><div id="reviews"></div>
+  </section>
+</main>
+<footer>สื่อฝึกการฟังเสียงสำหรับนักศึกษาพยาบาล ไม่ใช้แทนการประเมินผู้ป่วยจริง</footer>
+<script src="./script.js"></script>
+</body>
+</html>

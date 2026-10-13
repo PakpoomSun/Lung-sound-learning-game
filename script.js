@@ -2,10 +2,10 @@
 "use strict";
 const S={
  normal:{name:"เสียงปอดปกติ (Normal sound)",audio:"media/normal-sound.mp4"},
- rhonchi:{name:"Rhonchi",audio:"media/rhonchi-audio.mp4",video:"media/rhonchi-review.mp4",desc:"เสียงต่ำคล้ายกรนหรือครืดคราด อาจเปลี่ยนหลังไอ"},
- stridor:{name:"Stridor",audio:"media/stridor-audio.mp4",video:"media/stridor-review.mp4",desc:"เสียงแหลมหรือหยาบ มักเด่นขณะหายใจเข้า"},
- wheezing:{name:"Wheezing",audio:"media/wheezing-audio.mp4",video:"media/wheezing-review.mp4",desc:"เสียงหวีดต่อเนื่อง มักเด่นขณะหายใจออก"},
- crackles:{name:"Crepitation / Rales / Crackles",audio:"media/crackles-audio.mp4",video:"media/crackles-review.mp4",desc:"เสียงแตกพร่าเป็นช่วง ๆ คล้ายเสียงเป๊าะหรือกรอบแกรบ"}
+ rhonchi:{name:"Rhonchi",audio:"media/rhonchi-audio.mp4",video:"media/rhonchi-review.mp4",desc:"เสียงต่ำ ทุ้ม คล้ายเสียงกรนหรือเสียงครืดคราด คล้ายเสียงหายใจของนักดำน้ำ มักเกิดจากสารคัดหลั่งในทางเดินหายใจขนาดใหญ่ และอาจเปลี่ยนแปลงหรือลดลงหลังไอ"},
+ stridor:{name:"Stridor",audio:"media/stridor-audio.mp4",video:"media/stridor-review.mp4",desc:"เสียงแหลมดัง หยาบ คล้ายเสียงหวูด มักได้ยินชัดขณะหายใจเข้า เกิดจากการตีบแคบหรืออุดกั้นของทางเดินหายใจส่วนบน"},
+ wheezing:{name:"Wheezing",audio:"media/wheezing-audio.mp4",video:"media/wheezing-review.mp4",desc:"เสียงหวีดแหลมต่อเนื่อง คล้ายเสียงผิวปากหรือนกหวีด หรือเสียงร้องของแมวน้ำ มักได้ยินชัดขณะหายใจออก เกิดจากทางเดินหายใจตีบแคบ"},
+ crackles:{name:"Crepitation / Rales / Crackles",audio:"media/crackles-audio.mp4",video:"media/crackles-review.mp4",desc:"เสียงแตกเป๊าะ ๆ หรือกรอบแกรบเป็นช่วงสั้น ๆ คล้ายเสียงแกะตีนตุ๊กแก หรือเสียงขยี้ถุงพลาสติก ขยี้กันกระแทก มักได้ยินชัดขณะหายใจเข้า เกิดจากการเปิดของทางเดินหายใจขนาดเล็กหรือการมีสารคัดหลั่งในถุงลม ขึ้นอยู่กับสาเหตุ"}
 };
 const types=["rhonchi","stridor","wheezing","crackles"],$=id=>document.getElementById(id);
 let qs=[],idx=0,answers=[null,null,null,null],optionSets=[];

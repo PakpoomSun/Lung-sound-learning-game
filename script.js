@@ -11,7 +11,7 @@ const types=["rhonchi","stridor","wheezing","crackles"],$=id=>document.getElemen
 let qs=[],idx=0,answers=[null,null,null,null],optionSets=[];
 function shuffle(arr){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 function side(s){return s==="left"?"ฝั่งซ้ายของภาพ":"ฝั่งขวาของภาพ";}
-function showError(msg){if($("feedback"))$("feedback").textContent=msg;console.error("[Lung Sound Pair Quiz]",msg);}
+function showError(msg){if($("feedback"))$("feedback").textContent=msg;console.error("[Lung Sound Learning Quiz Game]",msg);}
 function setup(){qs=shuffle(types).map(type=>({type,abn:Math.random()<.5?"left":"right"}));idx=0;answers=[null,null,null,null];optionSets=[];render();}
 function play(s){
  const q=qs[idx],player=$("player");if(!q||!player){showError("ไม่พบข้อมูลข้อสอบหรือเครื่องเล่นเสียง");return;}

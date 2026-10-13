@@ -1,9 +1,9 @@
 (()=>{"use strict";
 const S={normal:{name:"เสียงปอดปกติ (Normal sound)",audio:"media/normal-sound.mp4"},
-rhonchi:{name:"Rhonchi",audio:"media/rhonchi-audio.mp4",video:"media/rhonchi-review.mp4",desc:"เสียงต่ำ ทุ้ม คล้ายเสียงกรนหรือเสียงครืดคราด มักเกิดจากสารคัดหลั่งในทางเดินหายใจขนาดใหญ่ และอาจเปลี่ยนแปลงหรือลดลงหลังไอ"},
+rhonchi:{name:"Rhonchi",audio:"media/rhonchi-audio.mp4",video:"media/rhonchi-review.mp4",desc:"เสียงต่ำ ทุ้ม คล้ายเสียงกรน เสียงครืดคราด หรือมีเสียงคล้ายกับการหายใจใต้น้ำของนักประดาน้ำ มักเกิดจากสารคัดหลั่งในทางเดินหายใจขนาดใหญ่ และอาจเปลี่ยนแปลงหรือลดลงหลังไอ"},
 stridor:{name:"Stridor",audio:"media/stridor-audio.mp4",video:"media/stridor-review.mp4",desc:"เสียงแหลมดังและหยาบ คล้ายเสียงหวูด มักได้ยินชัดขณะหายใจเข้า เกิดจากการตีบแคบหรืออุดกั้นของทางเดินหายใจส่วนบน"},
-wheezing:{name:"Wheezing",audio:"media/wheezing-audio.mp4",video:"media/wheezing-review.mp4",desc:"เสียงหวีดแหลมต่อเนื่อง คล้ายเสียงผิวปากหรือนกหวีด มักได้ยินชัดขณะหายใจออก เกิดจากทางเดินหายใจตีบแคบ"},
-crackles:{name:"Crepitation / Rales / Crackles",audio:"media/crackles-audio.mp4",video:"media/crackles-review.mp4",desc:"เสียงแตกเป๊าะ ๆ หรือกรอบแกรบเป็นช่วงสั้น ๆ คล้ายเสียงแกะตีนตุ๊กแกหรือเสียงขยี้ถุงพลาสติก มักได้ยินชัดขณะหายใจเข้า โดยอาจเกิดจากการเปิดของทางเดินหายใจขนาดเล็กหรือมีสารคัดหลั่ง ขึ้นอยู่กับสาเหตุ"}};
+wheezing:{name:"Wheezing",audio:"media/wheezing-audio.mp4",video:"media/wheezing-review.mp4",desc:"เสียงหวีดแหลมต่อเนื่อง คล้ายเสียงผิวปากหรือนกหวีด หรือมีเสียงคล้ายเสียงร้องของแมวน้ำ มักได้ยินชัดขณะหายใจออก เกิดจากทางเดินหายใจตีบแคบ"},
+crackles:{name:"Crepitation / Rales / Crackles",audio:"media/crackles-audio.mp4",video:"media/crackles-review.mp4",desc:"เสียงแตกเป๊าะ ๆ หรือกรอบแกรบเป็นช่วงสั้น ๆ คล้ายเสียงแกะตีนตุ๊กแกหรือเสียงขยี้ซองกันกระแทก ขยี้ถุงพลาสติก มักได้ยินชัดขณะหายใจเข้า โดยอาจเกิดจากการเปิดของทางเดินหายใจขนาดเล็กหรือมีสารคัดหลั่ง ขึ้นอยู่กับสาเหตุ"}};
 const types=["rhonchi","stridor","wheezing","crackles"],$=id=>document.getElementById(id);let qs=[],idx=0,answers=[null,null,null,null],optionSets=[];
 function shuffle(a){a=[...a];for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
 function side(s){return s==="left"?"ฝั่งซ้ายของภาพ":"ฝั่งขวาของภาพ"}
